@@ -12,7 +12,7 @@ function Tranding({ data }) {
         <p className="text-3xl font-bold">Tranding Toys</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mt-10 gap-5">
           {trandingData.map((toysCards) => (
-            <ToysCard toysCards={toysCards} />
+            <ToysCard key={toysCards.toyId} toysCards={toysCards} />
           ))}
         </div>
       </div>

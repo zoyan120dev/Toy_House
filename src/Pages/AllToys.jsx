@@ -39,7 +39,7 @@ function AllToys() {
          {
           Searching.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mt-10 gap-5">
-            {Searching.map(toysCards => <ToysCard toysCards={toysCards}/>)}
+            {Searching.map(toysCards => <ToysCard key={toysCards.toyId} toysCards={toysCards}/>)}
            </div>
           ):(
             <div className='text-accent flex justify-center mt-50'>

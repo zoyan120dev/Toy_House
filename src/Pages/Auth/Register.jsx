@@ -1,29 +1,32 @@
 import React, { use } from 'react'
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../../context/AuthProvider';
+import { FaRegEye , FaEyeSlash} from "react-icons/fa";
+
+
 function Register() {
-  const {signInWithEmailAndPassword} = use(AuthContext)
+  const { registerWithEmailAndPassword, handleShowPassword, showPassword } =
+    use(AuthContext);
+  const navigate = useNavigate()
 
   const handleSignInEmailAndPassword = (event) => {
       event.preventDefault()
-      const save = event.target;
-      const name = save.name.target
-      const photo = save.photo.value;
-      const email = save.email.value;
-      const password = save.password.value;
+      const form = event.target;
+      const name = form.name.value;
+      const photo = form.photo.value;
+      const email = form.email.value;
+      const password = form.password.value;
+      registerWithEmailAndPassword(email, password)
+        .then((result) => {
+          console.log(result);
+          navigate('/')
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  };
+  
 
-      signInWithEmailAndPassword(email , password)
-      .then(result => {
-        console.log(result)
-      })
-      .catch(error => {
-        console.log(error)
-      })
-  }
-
-  const handlePasswordSHow = () => {
-    
-  }
   return (
     <>
       <div className="hero bg-base-200 min-h-screen">
@@ -37,16 +40,18 @@ function Register() {
                   <label className="label">Name</label>
                   <input
                     type="text"
-                    name='name'
+                    name="name"
                     className="input w-full"
+                    required
                     placeholder="Name"
                   />
                   {/* Photo url */}
                   <label className="label">Photo Url</label>
                   <input
                     type="text"
-                    name='photo'
+                    name="photo"
                     className="input w-full"
+                    required
                     placeholder="Photo Url"
                   />
 
@@ -54,18 +59,32 @@ function Register() {
                   <label className="label">Email</label>
                   <input
                     type="email"
-                    name='password'
+                    name="email"
                     className="input w-full"
+                    required
                     placeholder="Email"
                   />
                   {/* Password */}
                   <label className="label">Password</label>
-                  <input
-                    type="password"
-                    name='password'
-                    className="input w-full"
-                    placeholder="Password"
-                  />
+                  <div className=" relative">
+                    <input
+                      type={`${showPassword ? "text" : "password"}`}
+                      name="password"
+                      className="input w-full"
+                      required
+                      placeholder="Password"
+                    />
+                    <button
+                      className=" absolute top-3 right-3 cursor-pointer"
+                      onClick={handleShowPassword}
+                    >
+                      {showPassword ? (
+                        <FaEyeSlash className="text-2xl" />
+                      ) : (
+                        <FaRegEye className="text-2xl" />
+                      )}
+                    </button>
+                  </div>
                   <button className="btn btn-neutral mt-4">Login</button>
                 </fieldset>
               </form>

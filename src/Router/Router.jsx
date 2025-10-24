@@ -7,6 +7,7 @@ import Wishlist from "../Pages/MyProfile";
 import SignInPage from "../Pages/Auth/SignInPage";
 import Register from "../Pages/Auth/Register";
 import MyProfile from "../Pages/MyProfile";
+import PrivateRoute from "../context/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -17,30 +18,35 @@ const router = createBrowserRouter([
       {
         index: true,
         Component: Homelayout,
-        loader: () => fetch('../toydata.json')
+        loader: () => fetch("../toydata.json"),
       },
       {
         path: "/alltoys",
         Component: AllToys,
-        loader: () => fetch('../toydata.json')
+        loader: () => fetch("../toydata.json"),
       },
       {
         path: "/myprofile",
-        Component: MyProfile,
+        element: <PrivateRoute><MyProfile/></PrivateRoute>,
+      },
+      {
+        path: "/login",
+        Component: SignInPage,
+      },
+      {
+        path: "/register",
+        Component: Register,
       },
     ],
-   },
-   {
-     path :'/login',
-     Component: SignInPage
-   },
-   {
-      path:'/register',
-      Component: Register
-   },
-   {
-    HydrateFallback: <p>Loading..</p>
-   }
+  },
+  {
+     path:'toysdeitals/:id',
+     
+  },
+
+  {
+    HydrateFallback: <p>Loading..</p>,
+  },
 ]);
 
 export default router;

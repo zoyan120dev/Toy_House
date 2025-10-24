@@ -1,22 +1,45 @@
-import React, { use } from 'react'
-import { Link } from 'react-router';
-import { AuthContext } from '../../context/AuthProvider';
-import { useNavigate } from 'react-router';
+import React, { use } from "react";
+import { Link } from "react-router";
+import { AuthContext } from "../../context/AuthProvider";
+import { useNavigate } from "react-router";
+import { FaRegEye, FaEyeSlash } from "react-icons/fa";
 
 function SignInPage() {
-  const { signInWithGoogle} = use(AuthContext);
-  const navigate = useNavigate()
-  
-  const handleSignInWithGoogle =  () => {
-        signInWithGoogle()
-        .then(result => {
-           console.log(result.user);  
-           navigate('/')
-        })
-        .catch(error => {
-          console.log(error)
-        })
-  }
+  const {
+    signInWithGoogle,
+    handleShowPassword,
+    showPassword,
+    LoginInWithEmailAndPassword,
+  } = use(AuthContext);
+  const navigate = useNavigate();
+
+  const handleSignInWithGoogle = () => {
+    signInWithGoogle()
+      .then((result) => {
+        console.log(result.user);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleLoginWithEmailAndPassword = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    LoginInWithEmailAndPassword(email , password)
+    .then(result => {
+      console.log(result)
+      navigate('/')
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  };
+
   return (
     <>
       <div className="hero bg-base-200 min-h-screen">
@@ -24,27 +47,45 @@ function SignInPage() {
           <div className="text-center lg:text-left"></div>
           <div className="card bg-base-100 w-full min-w-sm shrink-0 shadow-2xl">
             <div className="card-body">
-              <form>
+              <form onSubmit={handleLoginWithEmailAndPassword}>
                 <fieldset className="fieldset">
                   <label className="label">Email</label>
                   <input
                     type="email"
+                    name="email"
                     className="input w-full"
                     placeholder="Email"
                   />
                   <label className="label">Password</label>
-                  <input
-                    type="password"
-                    className="input w-full"
-                    placeholder="Password"
-                  />
+                  <div className=" relative">
+                    <input
+                      type={`${showPassword ? "text" : "password"}`}
+                      name="password"
+                      className="input w-full"
+                      required
+                      placeholder="Password"
+                    />
+                    <button
+                      className=" absolute top-3 right-3 cursor-pointer"
+                      onClick={handleShowPassword}
+                    >
+                      {showPassword ? (
+                        <FaEyeSlash className="text-2xl" />
+                      ) : (
+                        <FaRegEye className="text-2xl" />
+                      )}
+                    </button>
+                  </div>
                   <div>
                     <a className="link link-hover">Forgot password?</a>
                   </div>
                   <button className="btn btn-neutral mt-4">Login</button>
                 </fieldset>
               </form>
-              <button onClick={handleSignInWithGoogle} className="btn bg-white text-black border-[#e5e5e5]">
+              <button
+                onClick={handleSignInWithGoogle}
+                className="btn bg-white text-black border-[#e5e5e5]"
+              >
                 <svg
                   aria-label="Google logo"
                   width="16"
@@ -89,4 +130,4 @@ function SignInPage() {
   );
 }
 
-export default SignInPage
+export default SignInPage;
