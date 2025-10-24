@@ -25,11 +25,13 @@ function ToysCard({ toysCards }) {
               <h1>Salar Name: {toysCards.sellerName}</h1>
             </div>
           </h2>
-          <p className='text-accent'>
+          <p className="text-accent">
             {toysCards.description.length > 50 ? (
               <>
                 {toysCards.description.slice(0, 50)}
-                <Link className='text-blue-500'>Read More...</Link>
+                <Link to={`/toysdeitals/${toysCards.toyId}`} className="text-blue-500">
+                  Read More...
+                </Link>
               </>
             ) : (
               <>{toysCards.description}</>

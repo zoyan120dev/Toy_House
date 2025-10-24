@@ -3,11 +3,11 @@ import Root from "../layout/Root";
 import Homelayout from "../Pages/Home/Homelayout";
 import ErrorPage from "../Error/ErrorPage";
 import AllToys from "../Pages/AllToys";
-import Wishlist from "../Pages/MyProfile";
 import SignInPage from "../Pages/Auth/SignInPage";
 import Register from "../Pages/Auth/Register";
 import MyProfile from "../Pages/MyProfile";
 import PrivateRoute from "../context/PrivateRoute";
+import ToysDeitls from "../Pages/ToysDeitls";
 
 const router = createBrowserRouter([
   {
@@ -27,7 +27,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/myprofile",
-        element: <PrivateRoute><MyProfile/></PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <MyProfile />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/login",
@@ -37,11 +41,16 @@ const router = createBrowserRouter([
         path: "/register",
         Component: Register,
       },
+      {
+        path: "/toysdeitals/:id",
+        element: (
+          <PrivateRoute>
+            <ToysDeitls />
+          </PrivateRoute>
+        ),
+        loader: () => fetch('../toydata.json')
+      },
     ],
-  },
-  {
-     path:'toysdeitals/:id',
-     
   },
 
   {
