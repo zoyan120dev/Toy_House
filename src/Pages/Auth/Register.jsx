@@ -5,8 +5,13 @@ import { FaRegEye , FaEyeSlash} from "react-icons/fa";
 
 
 function Register() {
-  const { registerWithEmailAndPassword, handleShowPassword, showPassword } =
-    use(AuthContext);
+  const {
+    registerWithEmailAndPassword,
+    handleShowPassword,
+    showPassword,
+    setUser,
+    updatedUser,
+  } = use(AuthContext);
   const navigate = useNavigate()
 
   const handleSignInEmailAndPassword = (event) => {
@@ -18,8 +23,15 @@ function Register() {
       const password = form.password.value;
       registerWithEmailAndPassword(email, password)
         .then((result) => {
-          console.log(result);
-          navigate('/')
+          const users = result.user;
+          updatedUser({displayName: name , photoURL: photo}).then(() => {
+              setUser({...users ,displayName: name , photoURL: photo})
+              navigate("/");
+          })
+           .catch(error => {
+             console.log(error)
+             setUser(users) 
+           })
         })
         .catch((error) => {
           console.log(error);

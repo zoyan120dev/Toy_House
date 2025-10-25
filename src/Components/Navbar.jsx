@@ -39,8 +39,8 @@ function Navbar() {
         <div className="flex items-center space-x-2">
           <div>
             <img
-              className="w-13 rounded-full object-cover cursor-pointer"
-              src={users}
+              className="w-13 rounded-full object-cover cursor-pointer h-13"
+              src={user ? user.photoURL : users}
               alt=""
             />
           </div>

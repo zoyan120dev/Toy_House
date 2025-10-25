@@ -1,19 +1,22 @@
-import React, { useState } from 'react'
+import React from "react";
 import { CiBookmark } from "react-icons/ci";
-import { Link } from 'react-router';
-import Popular from './Popular';
+import { Link } from "react-router";
+import Popular from "./Popular";
 
 function ToysCard({ toysCards }) {
-
   return (
     <>
-      <div className="card bg-base-100  shadow-sm ">
-        <figure>
+      <div className="card bg-base-100 shadow-sm overflow-hidden">
+        <figure className="relative group">
           <img
-            className="h-[400px] w-full object-cover hover:scale-105 transition-all ease-in-out"
+            className="h-[400px] w-[400px] object-cover rounded-t-lg transform transition-transform duration-500 ease-in-out group-hover:scale-110 group-hover:brightness-110"
             src={toysCards.pictureURL}
-            alt="Shoes"
+            alt={toysCards.toyName}
           />
+          <div className="absolute inset-0 rounded-t-lg bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out"></div>
+          <div className="absolute top-3 right-3 bg-white/70 backdrop-blur-md rounded-full p-2 text-gray-700 hover:text-blue-500 transition-colors duration-300">
+            <CiBookmark size={22} />
+          </div>
         </figure>
         <div className="card-body">
           <h2 className="card-title">
@@ -22,14 +25,17 @@ function ToysCard({ toysCards }) {
                 {toysCards.toyName}
                 <div className="badge badge-secondary">{toysCards.status}</div>
               </div>
-              <h1>Salar Name: {toysCards.sellerName}</h1>
+              <h1>Seller Name: {toysCards.sellerName}</h1>
             </div>
           </h2>
           <p className="text-accent">
             {toysCards.description.length > 50 ? (
               <>
                 {toysCards.description.slice(0, 50)}
-                <Link to={`/toysdeitals/${toysCards.toyId}`} className="text-blue-500">
+                <Link
+                  to={`/toysdeitals/${toysCards.toyId}`}
+                  className="text-blue-500 ml-1"
+                >
                   Read More...
                 </Link>
               </>
@@ -43,4 +49,4 @@ function ToysCard({ toysCards }) {
   );
 }
 
-export default ToysCard
+export default ToysCard;
