@@ -1,12 +1,12 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 const firebaseConfig = {
-    apiKey: "AIzaSyClYBLX-RZ4NbcMFYoh9MUVxSiignSs3ts",
-    authDomain: "toyhouse-firebase-auth.firebaseapp.com",
-    projectId: "toyhouse-firebase-auth",
-    storageBucket: "toyhouse-firebase-auth.firebasestorage.app",
-    messagingSenderId: "765793412575",
-    appId: "1:765793412575:web:fc2dec611674439ec7d06a"
+    apiKey:import.meta.env.VITE_apiKey,
+    authDomain:import.meta.env.VITE_authDomain,
+    projectId:import.meta.env.VITE_projectId,
+    storageBucket:import.meta.env.VITE_storageBucket,
+    messagingSenderId:import.meta.env.VITE_messagingSenderId,
+    appId:import.meta.env.VITE_appId,
 };
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);

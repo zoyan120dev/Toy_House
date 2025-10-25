@@ -19,11 +19,13 @@ const router = createBrowserRouter([
         index: true,
         Component: Homelayout,
         loader: () => fetch("../toydata.json"),
+        hydrateFallbackElement: <p>Loading...</p>,
       },
       {
         path: "/alltoys",
         Component: AllToys,
         loader: () => fetch("../toydata.json"),
+        hydrateFallbackElement: <p>Loading...</p>,
       },
       {
         path: "/myprofile",
@@ -48,13 +50,10 @@ const router = createBrowserRouter([
             <ToysDeitls />
           </PrivateRoute>
         ),
-        loader: () => fetch('../toydata.json')
+        loader: () => fetch("../toydata.json"),
+        hydrateFallbackElement: <p>Loading...</p>,
       },
     ],
-  },
-
-  {
-    HydrateFallback: <p>Loading..</p>,
   },
 ]);
 
