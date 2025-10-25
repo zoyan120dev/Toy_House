@@ -2,6 +2,7 @@ import React from "react";
 import logo from "../assets/toyicone.jpg"; 
 
 function Footer() {
+  
   return (
     <footer className="bg-black text-accent">
       <div className="container mx-auto p-10 grid grid-cols-1 md:grid-cols-4 gap-10">
