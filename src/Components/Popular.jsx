@@ -6,7 +6,6 @@ function Popular({ data }) {
    const filterData = data.filter(
      (popularToys) => popularToys.status === "popular"
    );
-   console.log(filterData)
   
    return (
      <div className="mt-10 container mx-auto py-7">

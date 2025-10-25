@@ -2,6 +2,7 @@ import React, { use } from 'react'
 import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../../context/AuthProvider';
 import { FaRegEye , FaEyeSlash} from "react-icons/fa";
+import { toast } from 'react-toastify';
 
 
 function Register() {
@@ -24,6 +25,21 @@ function Register() {
       const email = form.email.value;
       const password = form.password.value;
        
+      const hasUppercase = /[A-Z]/;
+      const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/;
+      const hasMinLength = /^.{6,}$/;
+
+      if (!hasUppercase.test(password)) {
+        return SetError("Password must contain at least one uppercase letter!");
+      } else if (!hasSpecialChar.test(password)) {
+        return SetError(
+          "Password must contain at least one special character!"
+        );
+      } else if (!hasMinLength.test(password)) {
+        return SetError("Password must be at least 6 characters long!");
+      }else{
+        SetError('')
+      }
       
 
       registerWithEmailAndPassword(email, password)
@@ -31,15 +47,16 @@ function Register() {
           const users = result.user;
           updatedUser({displayName: name , photoURL: photo}).then(() => {
               setUser({...users ,displayName: name , photoURL: photo})
+              toast('Welcome 🥳')
               navigate("/");
           })
            .catch(error => {
-             console.log(error)
+            
              setUser(users) 
            })
         })
         .catch((error) => {
-          console.log(error);
+          
         });
   };
   
@@ -105,6 +122,9 @@ function Register() {
                   <button className="btn btn-neutral mt-4">Login</button>
                 </fieldset>
               </form>
+              {
+                error && <p className='text-red-500'>{error}</p>
+              }
               <p className="text-accent">
                 Already have an Account{" "}
                 <Link className="text-blue-500 underline" to="/login">

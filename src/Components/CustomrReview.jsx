@@ -3,13 +3,13 @@ import React, { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { CiStar } from "react-icons/ci";
 
-// Import Swiper styles
+
 import "swiper/css";
 import "swiper/css/pagination";
 
 
 
-// import required modules
+
 import { Pagination } from "swiper/modules";
 
 function CustomreReview() {

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import { FaRegEye, FaEyeSlash } from "react-icons/fa";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../../firebase/firebase.config";
+import { toast } from "react-toastify";
 
 function SignInPage() {
   const {
@@ -21,11 +22,12 @@ function SignInPage() {
   const handleSignInWithGoogle = () => {
     signInWithGoogle()
       .then((result) => {
-        console.log(result.user);
+        // console.log(result.user);
+        toast('Welcome 🥳')
         navigate(`${location.state ? location.state : '/'}`);
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
   };
 
@@ -37,11 +39,12 @@ function SignInPage() {
 
     LoginInWithEmailAndPassword(email , password)
     .then(result => {
-      console.log(result)
-      navigate('/')
+      // console.log(result)
+      toast('Welcome')
+       navigate(`${location.state ? location.state : "/"}`);
     })
     .catch(error => {
-      console.log(error)
+      // console.log(error)
     })
   };
 
@@ -50,10 +53,10 @@ function SignInPage() {
       const email = emailRef.current.value;
       sendPasswordResetEmail(auth , email)
       .then(() => {
-        alert('Plase check Your Email')
+         toast('Please check your email')
       })
       .catch(error => {
-        console.log(error.message)
+        // console.log(error.message)
       })
   };
 

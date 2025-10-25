@@ -5,7 +5,7 @@ function Tranding({ data }) {
     const trandingData = data.filter(
       (trandingData) => trandingData.status === "tranding"
     );
-    console.log(trandingData)
+
   return (
     <>
       <div className="my-10 container mx-auto">

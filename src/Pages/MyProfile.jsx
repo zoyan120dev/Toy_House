@@ -1,6 +1,7 @@
 import React, { useContext } from "react"; 
 import userImage from "../assets/user.png";
 import { AuthContext } from "../context/AuthProvider";
+import { toast } from "react-toastify";
 
 function MyProfile() {
   const { user, updatedUser, setUser } = useContext(AuthContext); 
@@ -13,9 +14,10 @@ function MyProfile() {
     updatedUser({ displayName: name, photoURL: photo })
       .then(() => {
         setUser({ ...user, displayName: name, photoURL: photo });
+        toast('Profile Updated')
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
   };
 
