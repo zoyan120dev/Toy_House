@@ -8,6 +8,7 @@ const googleProvider = new GoogleAuthProvider();
 function AuthProvider({children}) {
   const [user , setUser] = useState(null)
   const [showPassword , setshowPassword] = useState(false)
+  const [error , SetError] = useState(null)
 
   const signInWithGoogle = () => {
     return signInWithPopup(auth , googleProvider)
@@ -44,6 +45,8 @@ function AuthProvider({children}) {
     showPassword,
     updatedUser,
     LoginInWithEmailAndPassword,
+    error,
+    SetError,
   };
 
   useEffect(() => {

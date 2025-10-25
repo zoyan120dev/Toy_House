@@ -1,8 +1,10 @@
-import React, { use } from "react";
+import React, { use, useRef } from "react";
 import { Link, useLocation } from "react-router";
 import { AuthContext } from "../../context/AuthProvider";
 import { useNavigate } from "react-router";
 import { FaRegEye, FaEyeSlash } from "react-icons/fa";
+import { sendPasswordResetEmail } from "firebase/auth";
+import { auth } from "../../firebase/firebase.config";
 
 function SignInPage() {
   const {
@@ -11,6 +13,7 @@ function SignInPage() {
     showPassword,
     LoginInWithEmailAndPassword,
   } = use(AuthContext);
+  const emailRef = useRef()
   
   const location = useLocation()
   const navigate = useNavigate();
@@ -42,6 +45,18 @@ function SignInPage() {
     })
   };
 
+  
+  const handleForgetPassword = () => { 
+      const email = emailRef.current.value;
+      sendPasswordResetEmail(auth , email)
+      .then(() => {
+        alert('Plase check Your Email')
+      })
+      .catch(error => {
+        console.log(error.message)
+      })
+  };
+
   return (
     <>
       <div className="hero bg-base-200 min-h-screen">
@@ -53,6 +68,7 @@ function SignInPage() {
                 <fieldset className="fieldset">
                   <label className="label">Email</label>
                   <input
+                    ref={emailRef}
                     type="email"
                     name="email"
                     className="input w-full"
@@ -78,7 +94,7 @@ function SignInPage() {
                       )}
                     </button>
                   </div>
-                  <div>
+                  <div onClick={handleForgetPassword}>
                     <a className="link link-hover">Forgot password?</a>
                   </div>
                   <button className="btn btn-neutral mt-4">Login</button>

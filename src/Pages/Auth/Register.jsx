@@ -11,6 +11,8 @@ function Register() {
     showPassword,
     setUser,
     updatedUser,
+    error,
+    SetError,
   } = use(AuthContext);
   const navigate = useNavigate()
 
@@ -21,6 +23,9 @@ function Register() {
       const photo = form.photo.value;
       const email = form.email.value;
       const password = form.password.value;
+       
+      
+
       registerWithEmailAndPassword(email, password)
         .then((result) => {
           const users = result.user;
