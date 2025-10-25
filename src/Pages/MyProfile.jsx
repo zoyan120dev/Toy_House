@@ -21,8 +21,9 @@ function MyProfile() {
       });
   };
 
+
   return (
-    <div className="container mx-auto flex gap-10 items-center mt-40">
+    <div className="container mx-auto flex gap-11 items-center mt-40">
       <div className="flex space-y-3.5 flex-col">
         <img
           className="w-23 rounded-full h-23"
